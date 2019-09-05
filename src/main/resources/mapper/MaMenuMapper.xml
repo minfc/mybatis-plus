@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mybatisplus.mapper.MaMenuMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.example.mybatisplus.entity.MaMenu">
+        <id column="BSM" property="bsm" />
+        <result column="PATH" property="path" />
+        <result column="TITLE" property="title" />
+        <result column="PARENT_BSM" property="parentBsm" />
+        <result column="ORDER_NO" property="orderNo" />
+        <result column="CREATE_TIME" property="createTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        BSM, PATH, TITLE, PARENT_BSM, ORDER_NO, CREATE_TIME
+    </sql>
+    <select id="queryJsWithMenu" parameterType="java.lang.String" resultType="java.lang.Object">
+    SELECT
+    C.BSM,C.PATH ,C.TITLE,C.PARENT_BSM
+    FROM
+    MA_ROLE A
+    INNER JOIN MA_ROLE_MENU B ON A .BSM = B.ROLE_BSM
+    INNER JOIN MA_MENU C ON B.MENU_BSM = C.BSM
+    where a.BSM =  #{bsm,jdbcType=NVARCHAR}
+    order by C.ORDER_NO
+    </select>
+
+</mapper>

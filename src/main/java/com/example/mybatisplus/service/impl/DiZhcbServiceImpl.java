@@ -4,7 +4,10 @@ import com.example.mybatisplus.entity.DiZhcb;
 import com.example.mybatisplus.mapper.DiZhcbMapper;
 import com.example.mybatisplus.service.DiZhcbService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -16,5 +19,12 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class DiZhcbServiceImpl extends ServiceImpl<DiZhcbMapper, DiZhcb> implements DiZhcbService {
+@Autowired
+private DiZhcbMapper diZhcbMapper;
+
+    @Override
+    public List<DiZhcb> getHqXlkType(Integer id) {
+        return diZhcbMapper.getHqXlkType(id);
+    }
 
 }

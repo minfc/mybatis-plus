@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mybatisplus.mapper.MaRoleMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.example.mybatisplus.entity.MaRole">
+        <id column="BSM" property="bsm" />
+        <result column="NAME" property="name" />
+        <result column="FLAG" property="flag" />
+        <result column="ROLE_NO" property="roleNo" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        BSM, NAME, FLAG, ROLE_NO
+    </sql>
+    <select id="queryRoleWithYh" parameterType="java.lang.String"  resultType="com.example.mybatisplus.entity.MaRole">
+    SELECT
+        A.BSM,A.NAME,A.FLAG,A.ROLE_NO
+    FROM
+        MA_ROLE A
+    INNER JOIN MA_USER_ROLE B ON A .BSM = B.ROLE_BSM
+    INNER JOIN MA_USER C ON B.USER_BSM = C.BSM
+    where C.BSM = #{bsm,jdbcType=VARCHAR}
+    </select>
+</mapper>

@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 //扫描dao或者是Mapper接口
-@MapperScan("com.example.demo.mapper")
+@MapperScan("com.example.mybatisplus.mapper")
 public class MybatisPlusConfig {
     /**
      * mybatis-plus 分页插件

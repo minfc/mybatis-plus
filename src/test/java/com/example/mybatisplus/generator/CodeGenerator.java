@@ -26,7 +26,7 @@ public class CodeGenerator {
         gc.setOutputDir(projectPath + "/src/main/java");
         gc.setAuthor("minfanchao");
         gc.setActiveRecord(true);// 不需要ActiveRecord特性的请改为false
-        gc.setEnableCache(true);// XML 二级缓存
+        gc.setEnableCache(false);// XML 二级缓存
         gc.setBaseResultMap(true);// XML ResultMap
         gc.setBaseColumnList(true);// XML columList
         gc.setSwagger2(true);
@@ -81,7 +81,7 @@ public class CodeGenerator {
 
         // 策略配置
         StrategyConfig strategy = new StrategyConfig();
-        strategy.setInclude(new String[] { "DI_ZHCB" }); // 需要生成的表
+        strategy.setInclude(new String[] { "MA_USER_ROLE" }); // 需要生成的表
         strategy.setNaming(NamingStrategy.underline_to_camel);
         strategy.setColumnNaming(NamingStrategy.underline_to_camel);
         strategy.setEntityLombokModel(true);

@@ -2,6 +2,9 @@ package com.example.mybatisplus.service;
 
 import com.example.mybatisplus.entity.DiZhcb;
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +16,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface DiZhcbService extends IService<DiZhcb> {
 
+    List<DiZhcb> getHqXlkType(Integer id);
 }
