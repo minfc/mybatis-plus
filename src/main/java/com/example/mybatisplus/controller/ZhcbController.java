@@ -35,7 +35,7 @@ public class ZhcbController {
      * @return List<Zhcb>
      */
     @ApiOperation(value = "获取字典")
-    @RequestMapping(value = "getZhcb", method = RequestMethod.GET)
+    @RequestMapping(value = "getZhcb", method = RequestMethod.POST)
     public List<DiZhcb> getZhcb(Integer id) {
         return diZhcbService.getHqXlkType(id);
     }

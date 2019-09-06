@@ -11,7 +11,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,17 +25,18 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 @ExtendWith(SpringExtension.class) //导入spring测试框架
 @SpringBootTest  //提供spring依赖注入
 @Transactional  //事务管理，默认回滚,如果配置了多数据源记得指定事务管理器
+@AutoConfigureMockMvc
 @DisplayName("Test QxglController")
 class QxglControllerTest {
     @Autowired
-    private WebApplicationContext wac;
+    private QxglController qxglController;
 
     @Autowired
     private MockMvc mockMvc;
 
     @BeforeEach
     void setUp() {
-        mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
+        mockMvc = MockMvcBuilders.standaloneSetup(qxglController).build();
     }
 
     @AfterEach
@@ -42,13 +45,12 @@ class QxglControllerTest {
 
     @Test
     void jyYh() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.post("/test/login/{username}/{password}")
-                .param("usernmae", "admin")
-                .param("password", "admin")
-                .contentType(MediaType.APPLICATION_JSON_UTF8))
-                .andExpect(MockMvcResultMatchers.status().isOk())    //期望服务器端返回的信息
-                .andDo(print())
-                .andReturn().getResponse().getContentAsString();
+                MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/login/{username}/{password}").accept(MediaType.APPLICATION_JSON)
+                       .param("username","admin"))
+                        .andExpect(MockMvcResultMatchers.status().isOk())
+                        .andDo(MockMvcResultHandlers.print())
+                        .andReturn();
+        System.out.println("输出 " + mvcResult.getResponse().getContentAsString());
     }
 
 
