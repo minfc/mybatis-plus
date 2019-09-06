@@ -46,10 +46,5 @@ class MaUserMapperTest {
 
     @Test
     void selectByXm() {
-        MaUser dbuser = maUserMapper.selectByXm(user.getUsername());
-        assertAll("Select User Success.",
-                () -> assertNotNull(dbuser),
-                () -> assertNotNull(dbuser.getBsm()));
-        System.out.println(dbuser);
     }
 }

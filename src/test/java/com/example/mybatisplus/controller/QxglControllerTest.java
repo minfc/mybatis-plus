@@ -1,5 +1,6 @@
 package com.example.mybatisplus.controller;
 
+import org.junit.Assert;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -21,6 +22,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 @ExtendWith(SpringExtension.class) //导入spring测试框架
 @SpringBootTest  //提供spring依赖注入
@@ -29,14 +31,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 @DisplayName("Test QxglController")
 class QxglControllerTest {
     @Autowired
-    private QxglController qxglController;
+    private WebApplicationContext webApplicationContext;
 
     @Autowired
     private MockMvc mockMvc;
 
     @BeforeEach
     void setUp() {
-        mockMvc = MockMvcBuilders.standaloneSetup(qxglController).build();
+        mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
     }
 
     @AfterEach
@@ -44,15 +46,19 @@ class QxglControllerTest {
     }
 
     @Test
-    void jyYh() throws Exception {
-                MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/login/{username}/{password}").accept(MediaType.APPLICATION_JSON)
-                       .param("username","admin"))
-                        .andExpect(MockMvcResultMatchers.status().isOk())
-                        .andDo(MockMvcResultHandlers.print())
-                        .andReturn();
-        System.out.println("输出 " + mvcResult.getResponse().getContentAsString());
+    @DisplayName("Test login 登录")
+    void login() throws Exception {
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/login/admin/admin").accept(MediaType.APPLICATION_JSON)
+                .param("username","admin")
+                .param("password","admin"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print())
+                .andReturn();
+        int status = mvcResult.getResponse().getStatus();
+        String content = mvcResult.getResponse().getContentAsString();
+        Assert.assertEquals(200, status);                        //断言，判断返回代码是否正确
+        System.out.println("输出 " + content);
     }
-
 
     @Test
     void queryUserInfo() {
@@ -60,5 +66,17 @@ class QxglControllerTest {
 
     @Test
     void changePassWord() {
+    }
+
+    @Test
+    void seeUser() {
+    }
+
+    @Test
+    void changeUser() {
+    }
+
+    @Test
+    void deleteUser() {
     }
 }

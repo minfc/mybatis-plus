@@ -1,10 +1,13 @@
 package com.example.mybatisplus.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
+
 import java.io.Serializable;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -23,13 +26,13 @@ import lombok.experimental.Accessors;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("MA_USER")
-@ApiModel(value="MaUser对象", description="用户表")
+@ApiModel(value = "MaUser对象", description = "用户表")
 public class MaUser extends Model<MaUser> {
 
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "主键")
-    @TableId("BSM")
+    @TableId(value = "BSM", type = IdType.UUID)
     private String bsm;
 
     @ApiModelProperty(value = "用户名")
