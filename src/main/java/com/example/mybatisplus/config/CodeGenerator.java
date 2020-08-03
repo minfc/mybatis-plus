@@ -1,4 +1,4 @@
-package com.example.mybatisplus;
+package com.example.mybatisplus.config;
 
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
